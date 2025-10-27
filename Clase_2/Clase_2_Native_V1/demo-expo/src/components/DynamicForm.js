@@ -18,6 +18,7 @@ class DynamicForm extends Component {
             <View style={styles.container}>
                 <Text style={styles.title}>Comentario</Text>
                 <TextInput
+                    style = {styles.input}
                     keyboardType="default"
                     placeholder="Escribi tu comentario..."
                     onChangeText={text => this.setState({ comentario: text })}
@@ -34,7 +35,7 @@ class DynamicForm extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: "#f5f5f5",
+        backgroundColor: "#23e7eeff",
         padding: 25,
         borderRadius: 10,
         margin: 20,
@@ -45,10 +46,21 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     button: {
-        borderRadius: 10,
-        alignItems: "center",
-        marginBottom: 10,
-    },
+    borderRadius: 10,
+    alignItems: "center",
+    backgroundColor: "#a4cf2eff",
+    padding: 10,
+    margin: 5
+
+  },
+  input: {
+    borderRadius: 10,
+    alignItems: "center",
+    backgroundColor: "#cf8c2eff",
+    padding: 10,
+    margin: 5,
+
+  },
     buttonText: {
         fontSize: 16,
         color: "#000",

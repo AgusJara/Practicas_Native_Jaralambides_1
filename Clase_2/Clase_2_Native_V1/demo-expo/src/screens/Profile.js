@@ -15,7 +15,7 @@ function Profile (props) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#f5f5f5",
+    backgroundColor: "#23e7eeff",
     padding: 25,
     borderRadius: 10,
     margin: 20,
@@ -28,6 +28,18 @@ const styles = StyleSheet.create({
   button: {
     borderRadius: 10,
     alignItems: "center",
+    backgroundColor: "#a4cf2eff",
+    padding: 10,
+    margin: 5
+
+  },
+  input: {
+    borderRadius: 10,
+    alignItems: "center",
+    backgroundColor: "#cf8c2eff",
+    padding: 10,
+    margin: 5,
+
   },
   buttonText: {
     fontSize: 16,

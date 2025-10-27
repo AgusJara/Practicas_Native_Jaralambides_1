@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Pressable,Text,StyleSheet,View,TextInput } from "react-native";
+import { db,auth } from "../firebase/config";
 
 
 class Register extends Component{
@@ -8,15 +9,28 @@ class Register extends Component{
         this.state ={
             email:'',
             pass:'',
-            user:''
+            user:'',
+            registered: false,
+            error: ''
         }
     }
 
-    onSubmit(){
-        console.log("Email: ", this.state.email);
-        console.log("Password: ", this.state.pass);
-        console.log("Usuario: ", this.state.user);
-        
+    onSubmit(email,pass,user){
+        auth.createUserWithEmailAndPassword(email,pass)
+          .then(res => {
+            this.setState({registered: true});
+            db.collection('users').add({
+              email: email,
+              usuario: user,
+              createdAt: Date.now()
+            })
+            .then()
+            .catch(e => console.log(e));
+            this.props.navigation.navigate("Login")
+          })
+          .catch(error => {
+            this.setState({error: "Fallo en el registro"})
+          })
         
     }
 
@@ -25,23 +39,26 @@ class Register extends Component{
         <View style={styles.container}>
             <Text style={styles.title}>Registro</Text>
             <TextInput
+            style = {styles.input}
             keyboardType="default"
             placeholder="Nombre de usuario"
             onChangeText={text =>this.setState({user:text})}
             value={this.state.user}/>
             <TextInput
+            style = {styles.input}
             keyboardType="email-address"
             placeholder="email"
             onChangeText={text =>this.setState({email:text})}
             value={this.state.email}/>
             <TextInput
+            style = {styles.input}
             keyboardType="default"
             placeholder="password"
             secureTextEntry={true}
             onChangeText={text =>this.setState({pass:text})}
             value={this.state.pass}/>
             
-            <Pressable style={styles.button} onPress={()=>this.onSubmit()}>
+            <Pressable style={styles.button} onPress={()=>this.onSubmit(this.state.email,this.state.pass,this.state.user)}>
                 <Text style={styles.buttonText}>Enviar</Text>
             </Pressable>
             
@@ -55,7 +72,7 @@ class Register extends Component{
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#f5f5f5",
+    backgroundColor: "#23e7eeff",
     padding: 25,
     borderRadius: 10,
     margin: 20,
@@ -73,7 +90,20 @@ const styles = StyleSheet.create({
   button: {
     borderRadius: 10,
     alignItems: "center",
+    backgroundColor: "#a4cf2eff",
+    padding: 10,
+    margin: 5
+
   },
+  input: {
+    borderRadius: 10,
+    alignItems: "center",
+    backgroundColor: "#cf8c2eff",
+    padding: 10,
+    margin: 5,
+
+  },
+
   buttonText: {
     fontSize: 16,
     color: "#000",
